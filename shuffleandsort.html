@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Shuffle and Sort list</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<style>
+		.wrapper {
+    width: 960px;
+    margin: 0 auto;
+    background: #efefef;
+		}
+		.header{
+			float: left;
+			width: 100%;
+		}
+		h1 {
+	    text-align: center;
+	  }
+	  #numberList li {
+    list-style: none;
+    display: inline-block;
+    font-size: 5.6em;
+    color: #ffffff;
+   	padding: 0.65em 1em;
+   	margin-right: -4px;
+		}
+		#numberList{
+			margin: 0;
+			padding: 0;
+		}
+		section{
+			width: 70%;
+		}
+		aside{
+			float: right;
+		}
+		.btn{
+    width: 230px;
+			overflow: visible;
+    position: relative;
+    top: 0px;
+    display: block;
+    text-decoration: none;
+    font-size: 16px;
+    padding: 13px 42px;
+    margin: 20px 18px 0 10px;
+    background: #72c3dc;
+    color: #fff;
+		}
+
+		aside button{
+    color: #fff;
+		background: #72c3dc;
+    border-radius: 5px;
+    border: 1px solid #2b8ead;   
+    box-shadow: 0px 4px 0px #2b8ead;
+    text-shadow: 1px 1px 1px #2b8ead;
+		}
+		.listNumber1,.listNumber8{
+			background: #6F98A8;
+		}
+		.listNumber2,.listNumber4{
+			background: #2B8EAD;
+		}
+		.listNumber3,.listNumber5,.listNumber9{
+			background: #2F454E;
+		}
+		.listNumber6,.listNumber7{
+			background: #BFBFBF;
+		}
+		footer{
+			text-align: center;
+		}
+		@media screen and (max-width: 960px) and (min-width: 320px){
+			h1{
+				background-color: #000;
+				color:#fff;
+				height: 50px;
+				padding-top: 10px;
+    		margin-top: 0;
+			}
+			.wrapper {
+		    background: none;
+		    width: 100%;
+			}
+			aside {
+				text-align: center;
+		    float: none;
+		    width: auto;
+			}
+			aside .btn{
+				display: inline-block;
+				margin: 0px 0px 20px 0px;
+				width: auto;
+			}
+			section{
+				width: 100%;
+			}
+			#numberList li{
+				display: block;
+				padding: 1em;
+				background: #efefef;
+    		font-size: 2em;
+    		color:#000;
+    		margin-bottom: 15px;
+			}
+			.listNumber1, .listNumber8{
+				border-left: 10px solid #6F98A8;
+			}
+			.listNumber2,.listNumber4{
+				border-left: 10px solid #2B8EAD;
+			}
+			.listNumber3,.listNumber5,.listNumber9{
+				border-left: 10px solid #2F454E;
+			}
+			.listNumber6,.listNumber7{
+				border-left: 10px solid #BFBFBF;
+			}
+
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload=function(){
+		var list = document.getElementById("numberList"),
+			button = document.getElementById("shuffleList");
+		function shuffleNumber(items){
+		    var cached = items.slice(0), temp, i = cached.length, rand;
+		    while(--i)
+		    {
+		        rand = Math.floor(i * Math.random());
+		        temp = cached[rand];
+		        cached[rand] = cached[i];
+		        cached[i] = temp;
+		    }
+		    return cached;
+		}
+		function shuffleNodes(){
+			debugger
+		    var nodes = list.children, i = 0;
+		    nodes = Array.prototype.slice.call(nodes);
+		    nodes = shuffleNumber(nodes);
+		    while(i < nodes.length)
+		    {
+		        list.appendChild(nodes[i]);
+		        ++i;
+		    }
+		} 
+		document.getElementById("shuffleList").onclick = shuffleNodes;
+
+		document.getElementById("sortList").onclick = sortNumberList;
+
+
+		function sortNumberList(){
+			var sortNodes = list.children;
+		    sortNodes = Array.prototype.slice.call(sortNodes, 0);
+
+			sortNodes.sort(function(a, b) {
+			    var aord = +a.className.split('listNumber')[1];
+			    var bord = +b.className.split('listNumber')[1];
+			    return (aord > bord) ? 1 : -1;
+			});
+
+			for(var i = 0, l = sortNodes.length; i < l; i++) {
+			    list.appendChild(sortNodes[i]);
+			}
+		}
+
+
+	} 
+	</script>
+</head>
+<body>
+	<div class="wrapper">
+		<div class="header">
+			<h1>Shuffel and Sort</h1>
+		</div>
+		<aside>
+			<button id="shuffleList" type="button" class="btn active">Shuffle</button>
+			<button type="button" id="sortList" class="btn ">Sort</button>		 
+		</aside>
+		<section>
+			<div>
+					<ul id="numberList">
+						<li class="listNumber1"> 1 </li>
+						<li class="listNumber2"> 2 </li>
+						<li class="listNumber3"> 3 </li>
+						<li class="listNumber4"> 4 </li>
+						<li class="listNumber5"> 5 </li>
+						<li class="listNumber6"> 6 </li>
+						<li class="listNumber7"> 7 </li>
+						<li class="listNumber8"> 8 </li>
+						<li class="listNumber9"> 9 </li>
+					</ul>
+			</div>
+		</section>
+
+		<footer>
+			<p>Shuffel and Sort by {{ Loganathan G }}  </p>
+		</footer>
+
+	</div>
+</body>
+</html>
